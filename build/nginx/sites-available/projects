@@ -1,0 +1,66 @@
+map $http_upgrade $connection_upgrade {
+        default upgrade;
+        '' close;
+}
+
+upstream websocket {
+        server localhost:8010;
+	server localhost:8011;
+}
+
+server {
+	listen 80;
+ 
+	root /home/projects/www;
+	index index.php index.html;
+ 
+	server_name _;
+	rewrite ^([^.]*[^/])$ $1/ permanent;
+
+	location ~ piwik\.php(.*)$ {
+		return 204;
+	}
+
+        location ~ glicer\.php(.*)$ {
+		return 204;
+	}
+        
+
+	try_files $uri @w;
+
+	location @w {
+            rewrite ^(.+)\.(\d+)\.(js|css|png|jpg|gif|ttf|woff|eot|svg|json)$ $1.$3;
+	}
+
+	location ~ \.php$ {
+        	include snippets/fastcgi-php.conf;
+        	fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+		fastcgi_param  PHP_VALUE  "include_path=/home/projects/php";		
+		fastcgi_param  SMTP_HOST  "mail.gandi.net";
+		fastcgi_param  SMTP_USERNAME "emmanuel.roecker@glicer.com";
+		fastcgi_param  SMTP_PASSWORD "*****************";
+		fastcgi_param  DATA_DIRECTORY "/home/projects/data";
+    	}
+
+	location ~ /\.ht {
+        	deny all;
+    	}
+
+        location /chat/ {
+            rewrite /chat/(.*) /$1 break;
+            proxy_pass http://localhost:8010;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+        }
+
+	location /todo/ {
+	   rewrite /todo/(.*) /$1 break;
+           proxy_pass http://localhost:8011;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection $connection_upgrade;
+	
+	}
+}
+
