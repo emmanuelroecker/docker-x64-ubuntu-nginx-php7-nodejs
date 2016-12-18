@@ -20,7 +20,7 @@ Change file build/supervisord.conf to autostart nodejs application
 ./run.sh [nginx conf sites enabled directory] [web directory]
 ```
 
-http://localhost:8888 -> 80
+http://localhost:8888 -> 80  
 https://localhost:8889 -> 443
 
 
