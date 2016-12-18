@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker rm -f glicer/scaleway-server
-docker build -t glicer/scaleway-server .
+docker rm -f glicer/docker-x64-ubuntu-nginx-php7-nodejs
+docker build -t glicer/docker-x64-ubuntu-nginx-php7-nodejs .
