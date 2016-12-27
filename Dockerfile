@@ -20,7 +20,8 @@ RUN apt-get install -y nodejs
 RUN useradd -m projects
 
 # disable service nginx mode
-RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
+# RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
+RUN echo "\ninclude /etc/nginx/nginx_shared_core.conf;" >> /etc/nginx/nginx.conf
 
 # default directories and delete default nginx site
 RUN mkdir -p /var/run/php && mkdir -p /home/projects/www && rm /etc/nginx/sites-enabled/default

@@ -3,11 +3,14 @@ Docker Image Ubuntu 16.04 with nginx, php7 and node.js for scaleway server x64
 
 Reverse proxy - all protocols (websockets, ...) in port 80/443
 
-# Configure autostart process when docker container start
-
-Change file build/supervisord.conf to autostart nodejs application
 
 # Build Docker Image
+
+## Configure autostart process when docker container start
+
+Modify file build/supervisord.conf to autostart nodejs application added
+
+## Build command
 
 ```bash
 ./build.sh
@@ -15,19 +18,27 @@ Change file build/supervisord.conf to autostart nodejs application
 
 # Run Docker Image
 
+## Configure nginx core config
+
+Modify file build/nginx_shared_core.conf
+
+## Configure environments variables
+
+Modify run.sh
+
+## Run command
 
 ```bash
-./run.sh [nginx conf sites enabled directory] [web directory]
+./run.sh [nginx core include conf file] [nginx conf sites enabled directory] [web directory]
 ```
 
-http://localhost:8888 -> 80  
-https://localhost:8889 -> 443
-
+http://localhost:8888 -> container:80
+https://localhost:8889 -> container:443
 
 sample : 
 
 ```console
-./run.sh /home/user/nginx-sites-enabled /home/user/nginx-www
+./run.sh ./build/nginx_shared_core.conf ./build/sites-enabled /home/user/nginx-www ./build/env.list
 ```
 
 output : 
@@ -58,6 +69,10 @@ Sample [web directory] structure :
 # Run Docker Image with bash interactive
 
 ```bash
-./run-bash.sh [nginx conf] [web directory]
+./run-bash.sh [nginx core include conf file] [nginx conf sites enabled directory] [web directory]
 ```
+output interactive bash : 
 
+```console
+root@840fc451051a:/# 
+```

@@ -1,3 +1,16 @@
 #!/bin/bash
 
-docker run -i -t -p 8888:80 --name projects --entrypoint /bin/bash -v $1:/etc/nginx/sites-enabled:ro -v $2:/home/projects:ro glicer/docker-x64-ubuntu-nginx-php7-nodejs
+export SMTP_HOST="mail.host.net"
+export SMTP_USERNAME="emmanuel.rkr@glicer.com"
+export SMTP_PASSWORD="****************"
+
+pushd ./run
+./render-templates.sh ./sites-templates ./sites-enabled
+popd
+
+docker run -i -t -p 8888:80 --name projects \
+--entrypoint /bin/bash \
+-v $1:/etc/nginx/nginx_shared_core.conf \
+-v $2:/etc/nginx/sites-enabled \
+-v $3:/home/projects:ro \
+glicer/docker-x64-ubuntu-nginx-php7-nodejs
