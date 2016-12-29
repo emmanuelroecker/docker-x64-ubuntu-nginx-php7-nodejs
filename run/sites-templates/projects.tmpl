@@ -15,7 +15,10 @@ server {
 	index index.php index.html;
  
 	server_name _;
-	rewrite ^([^.]*[^/])$ $1/ permanent;
+	
+	if (-d $request_filename) {
+        rewrite [^/]$ $scheme://$http_host$uri/ permanent;
+    }
 
 	location ~ piwik\.php(.*)$ {
 		return 204;

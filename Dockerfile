@@ -32,6 +32,9 @@ RUN mkdir -p /run/php && mkdir -p /home/projects/www && rm /etc/nginx/sites-enab
 #Copy supervisor configuration
 COPY build/supervisord.conf /etc/supervisor/supervisord.conf
 
+# shared log directory
+VOLUME ["/var/log"]
+
 # Configure Services and Port
 COPY build/start.sh /start.sh
 ENTRYPOINT ["/bin/bash", "/start.sh"]
