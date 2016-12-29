@@ -45,9 +45,9 @@ server {
 		fastcgi_param  DATA_DIRECTORY "/home/projects/data";
     	}
 
-	location ~ /\.ht {
-        	deny all;
-    	}
+	location ~ /\. {
+      deny all;
+    }
 
         location /chat/ {
             rewrite /chat/(.*) /$1 break;
