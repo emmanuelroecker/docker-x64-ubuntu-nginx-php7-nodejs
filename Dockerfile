@@ -4,6 +4,9 @@ MAINTAINER Emmanuel ROECKER <emmanuel.roecker@glicer.com>
 
 RUN apt-get update && apt-get upgrade -y
 
+# install anacron
+RUN apt-get install -y cron
+
 # install ca certificates
 RUN apt-get install -y ca-certificates
 
@@ -14,7 +17,7 @@ RUN apt-get install -y supervisor
 RUN apt-get install -y nginx
 
 # install php 7
-RUN apt-get install -y php7.0 php7.0-fpm php7.0-sqlite3
+RUN apt-get install -y php7.0 php7.0-fpm php7.0-sqlite3 php7.0-xml
 
 # install latest version of nodejs
 RUN apt-get install -y nodejs

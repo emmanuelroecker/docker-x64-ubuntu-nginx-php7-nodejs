@@ -1,5 +1,5 @@
 # docker-x64-ubuntu-nginx-php7-nodejs
-Docker Image Ubuntu 16.04 with nginx, php7 and node.js for scaleway server x64
+Docker Image Ubuntu 16.04 x64 with nginx, php7, node.js and cron 
 
 Reverse proxy - all protocols (websockets, ...) in port 80/443
 
@@ -29,7 +29,7 @@ Modify run.sh
 ## Run command
 
 ```bash
-./run.sh [nginx core include conf file] [nginx conf sites enabled directory] [web directory]
+./docker-run.sh [nginx core include conf file] [nginx conf sites enabled directory] [web directory]
 ```
 
 http://localhost:8888 -> container:80
@@ -38,7 +38,7 @@ https://localhost:8889 -> container:443
 sample : 
 
 ```console
-./run.sh ./build/nginx_shared_core.conf ./build/sites-enabled /home/user/nginx-www ./build/env.list
+./docker-run.sh ./build/nginx_shared_core.conf ./build/sites-enabled /home/user/nginx-www ./build/env.list
 ```
 
 output : 
@@ -66,10 +66,10 @@ Sample [web directory] structure :
       | www -> public web directory  
       
 
-# Run Docker Image with bash interactive
+# Exec bash interactive
 
 ```bash
-./run-bash.sh [nginx core include conf file] [nginx conf sites enabled directory] [web directory]
+./docker-exec-bash.sh
 ```
 output interactive bash : 
 
