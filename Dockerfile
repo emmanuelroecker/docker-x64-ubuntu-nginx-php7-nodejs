@@ -17,7 +17,7 @@ RUN apt-get install -y supervisor
 RUN apt-get install -y nginx
 
 # install php 7
-RUN apt-get install -y php7.0 php7.0-fpm php7.0-sqlite3 php7.0-xml
+RUN apt-get install -y php7.0 php7.0-fpm php7.0-sqlite3 php7.0-xml php7.0-curl
 
 # install latest version of nodejs
 RUN apt-get install -y nodejs
