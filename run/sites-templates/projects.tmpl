@@ -28,7 +28,7 @@ server {
 		return 204;
 	}
         
-
+    sendfile off;
 	try_files $uri @w;
 
 	location @w {
