@@ -65,5 +65,9 @@ server {
            proxy_set_header Connection $connection_upgrade;
 	
 	}
+	
+	location = / {
+              return 301 http://cv.glicer.com/#project;
+     }
 }
 
