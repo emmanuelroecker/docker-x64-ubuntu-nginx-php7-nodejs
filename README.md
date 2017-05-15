@@ -1,5 +1,5 @@
 # docker-x64-ubuntu-nginx-php7-nodejs
-Docker Image Ubuntu 16.04 x64 with nginx, php7, node.js and cron 
+Docker Image Ubuntu 16.04 x64 with nginx, php7, nvm, node.js 6 lts, sqlite3 and cron 
 
 Reverse proxy - all protocols (websockets, ...) in port 80/443
 

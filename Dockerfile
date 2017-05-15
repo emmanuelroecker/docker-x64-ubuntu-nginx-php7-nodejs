@@ -4,32 +4,30 @@ MAINTAINER Emmanuel ROECKER <emmanuel.roecker@glicer.com>
 
 RUN apt-get update && apt-get upgrade -y
 
-# install anacron
-RUN apt-get install -y cron
-
-# install ca certificates
-RUN apt-get install -y ca-certificates
-
-# install supervisor
-RUN apt-get install -y supervisor
-
-# install nginx
-RUN apt-get install -y nginx
+# install cron ca-certificates, supervisor, nginx, sqlite3
+RUN apt-get install -y cron ca-certificates supervisor nginx sqlite3 curl
 
 # install php 7
 RUN apt-get install -y php7.0 php7.0-fpm php7.0-sqlite3 php7.0-xml php7.0-curl
 
-# install latest version of nodejs
-RUN apt-get install -y nodejs
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 6.10.3
 
-# configure projects user
-RUN useradd -m projects
+# install nvm and nodejs
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash && \
+    source $NVM_DIR/nvm.sh && \
+    nvm install $NODE_VERSION && \
+    nvm alias default $NODE_VERSION && \
+    nvm use default
+    
+ENV NODE_PATH $NVM_DIR/versions/node/$NODE_VERSION/lib/node_modules
+ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-# disable service nginx mode
-RUN echo "\ninclude /etc/nginx/nginx_shared_core.conf;" >> /etc/nginx/nginx.conf
-
-# default directories and delete default nginx site
-RUN mkdir -p /run/php && mkdir -p /home/projects/www && rm /etc/nginx/sites-enabled/default
+# configure projects user, disable service nginx mode & default directories and delete default nginx site
+RUN useradd -m projects && \
+    echo "include /etc/nginx/nginx_shared_core.conf;" >> /etc/nginx/nginx.conf && \
+    mkdir -p /run/php && mkdir -p /home/projects/www && rm /etc/nginx/sites-enabled/default
 
 # Copy supervisor configuration
 COPY build/supervisord.conf /etc/supervisor/supervisord.conf
@@ -43,4 +41,3 @@ ENTRYPOINT ["/bin/bash", "/start.sh"]
 
 # Configure ports
 EXPOSE 25 80 443 465
-
