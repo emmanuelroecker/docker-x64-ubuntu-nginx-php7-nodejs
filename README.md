@@ -29,7 +29,7 @@ Modify run.sh
 ## Run command
 
 ```bash
-./docker-run.sh [nginx core include conf file] [nginx conf sites enabled directory] [web directory]
+./docker-run.sh [nginx core include conf file] [nginx conf sites enabled directory] [supervisord.conf file] [web directory]
 ```
 
 http://localhost:8888 -> container:80

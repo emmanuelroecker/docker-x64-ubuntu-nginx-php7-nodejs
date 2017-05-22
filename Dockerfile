@@ -29,9 +29,6 @@ RUN useradd -m projects && \
     echo "include /etc/nginx/nginx_shared_core.conf;" >> /etc/nginx/nginx.conf && \
     mkdir -p /run/php && mkdir -p /home/projects/www && rm /etc/nginx/sites-enabled/default
 
-# Copy supervisor configuration
-COPY build/supervisord.conf /etc/supervisor/supervisord.conf
-
 # shared log directory
 VOLUME ["/var/log"]
 
