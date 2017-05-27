@@ -10,6 +10,9 @@ RUN apt-get install -y cron ca-certificates supervisor nginx sqlite3 curl
 # install php 7
 RUN apt-get install -y php7.0 php7.0-fpm php7.0-sqlite3 php7.0-xml php7.0-curl
 
+# install redis
+RUN apt-get install -y redis-server
+
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 6.10.3
