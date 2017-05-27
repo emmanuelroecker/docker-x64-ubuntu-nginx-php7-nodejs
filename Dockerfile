@@ -27,6 +27,9 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh
 ENV NODE_PATH $NVM_DIR/versions/node/$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
+# set the maximum number of open file descriptors
+RUN echo "ulimit -n 4096" >> /etc/default/redis
+
 # configure projects user, disable service nginx mode & default directories and delete default nginx site
 RUN useradd -m projects && \
     echo "include /etc/nginx/nginx_shared_core.conf;" >> /etc/nginx/nginx.conf && \

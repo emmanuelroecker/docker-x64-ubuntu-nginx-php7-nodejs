@@ -8,7 +8,7 @@ Reverse proxy - all protocols (websockets, ...) in port 80/443
 
 ## Configure autostart process when docker container start
 
-Modify file build/supervisord.conf to autostart nodejs application added
+Modify file run/supervisord.conf to autostart applications
 
 ## Build command
 
@@ -20,11 +20,11 @@ Modify file build/supervisord.conf to autostart nodejs application added
 
 ## Configure nginx core config
 
-Modify file build/nginx_shared_core.conf
+Modify file run/nginx_shared_core.conf
 
 ## Configure environments variables
 
-Modify run.sh
+Modify docker-run.sh
 
 ## Run command
 
@@ -38,7 +38,7 @@ https://localhost:8889 -> container:443
 sample : 
 
 ```console
-./docker-run.sh ./build/nginx_shared_core.conf ./build/sites-enabled /home/user/nginx-www ./build/env.list
+./docker-run.sh ./run/nginx_shared_core.conf ./run/sites-enabled ./run/supervisord.conf /home/www
 ```
 
 output : 
@@ -56,7 +56,7 @@ output :
 2016-12-18 18:56:09,870 INFO success: gltodo entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 ```
 
-Sample [nginx conf directory] in build/sites-enabled
+Sample [nginx conf directory] in run/sites-enabled
 
 Sample [web directory] structure : 
 
@@ -75,4 +75,12 @@ output interactive bash :
 
 ```console
 root@840fc451051a:/# 
+```
+
+# Restart a node server
+
+use process name configured in run/supervisord.conf
+
+```bash
+docker exec -it projects bash -c "supervisorctl restart glchat"
 ```
