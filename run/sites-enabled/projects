@@ -39,9 +39,9 @@ server {
         	include snippets/fastcgi-php.conf;
         	fastcgi_pass unix:/run/php/php7.0-fpm.sock;
 		fastcgi_param  PHP_VALUE  "include_path=/home/projects/php";		
-		fastcgi_param  SMTP_HOST  "mail.host.net";
-		fastcgi_param  SMTP_USERNAME "emmanuel.rkr@glicer.com";
-		fastcgi_param  SMTP_PASSWORD "****************";
+		fastcgi_param  SMTP_HOST  "mail.gandi.net";
+		fastcgi_param  SMTP_USERNAME "emmanuel.roecker@glicer.com";
+		fastcgi_param  SMTP_PASSWORD "6P5c2Bdkmlx8vmpDjdUR";
 		fastcgi_param  DATA_DIRECTORY "/home/projects/data";
     	}
 

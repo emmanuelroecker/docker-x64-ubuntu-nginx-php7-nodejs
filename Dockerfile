@@ -8,7 +8,7 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y cron ca-certificates supervisor nginx sqlite3 curl
 
 # install php 7
-RUN apt-get install -y php7.0 php7.0-fpm php7.0-sqlite3 php7.0-xml php7.0-curl
+RUN apt-get install -y php7.0 php7.0-fpm php7.0-sqlite3 php7.0-xml php7.0-curl php7.0-intl php7.0-gd
 
 # install redis
 RUN apt-get install -y redis-server
